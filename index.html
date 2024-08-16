@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #444;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .radio-group, .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .next-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Export Products</h1>
+        <form id="export-form">
+            <div class="section">
+                <h2>Scope</h2>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="scope" value="all" checked> Export all
+                    </label>
+                    <label>
+                        <input type="radio" name="scope" value="selected"> Export selected
+                    </label>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Settings</h2>
+                <div class="input-group">
+                    <label for="file-format">File format</label>
+                    <select id="file-format" name="file-format" required>
+                        <option value="">Select a format</option>
+                        <option value="csv">CSV</option>
+                        <option value="json">JSON</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="file-name">File name</label>
+                    <input type="text" id="file-name" name="file-name" required>
+                </div>
+            </div>
+            <button type="submit" class="next-btn">Next</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('export-form');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const scope = document.querySelector('input[name="scope"]:checked').value;
+                const fileFormat = document.getElementById('file-format').value;
+                const fileName = document.getElementById('file-name').value;
+
+                if (!fileFormat || !fileName) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                // Encode the form data as URL parameters
+                const params = new URLSearchParams({
+                    scope: scope,
+                    fileFormat: fileFormat,
+                    fileName: fileName
+                });
+
+                // Redirect to the "Select fields to export" page with the form data as URL parameters
+                window.location.href = `select-fields-to-export.html?${params.toString()}`;
+            });
+        });
+    </script>
+</body>
+</html>

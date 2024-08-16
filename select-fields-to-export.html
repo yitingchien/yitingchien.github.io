@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        label {
+            display: inline-block;
+            margin-left: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            padding-right: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .clear-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+        }
+        .collapse-icon {
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .collapsed > ul {
+            display: none;
+        }
+        .read-only {
+            opacity: 0.6;
+        }
+        /* Add left margin to child checkboxes */
+        ul ul {
+            margin-left: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select fields to export</h1>
+        <form id="export-form">
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search for fields" />
+                <span class="clear-icon" id="clear-search">✖</span>
+            </div>
+            <ul id="checkbox-list">
+                <li>
+                    <span class="collapse-icon">▼</span>
+                    <input type="checkbox" id="general-fields" name="general-fields">
+                    <label for="general-fields">General fields</label>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="product-key" name="product-key" class="read-only" checked>
+                            <label for="product-key">Product key *</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="name" name="name">
+                            <label for="name">Name</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="description" name="description">
+                            <label for="description">Description</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="categories" name="categories">
+                            <label for="categories">Categories</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="price-mode" name="price-mode">
+                            <label for="price-mode">Price mode</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="tax-category" name="tax-category">
+                            <label for="tax-category">Tax category</label>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="collapse-icon">▼</span>
+                    <input type="checkbox" id="variant-fields" name="variant-fields">
+                    <label for="variant-fields">Variant fields</label>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="variant-key" name="variant-key" class="read-only" checked>
+                            <label for="variant-key">Variant key *</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="sku" name="sku">
+                            <label for="sku">SKU</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="images" name="images">
+                            <label for="images">Images</label>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="collapse-icon">▼</span>
+                    <input type="checkbox" id="attributes" name="attributes">
+                    <label for="attributes">Attributes</label>
+                    <ul>
+                        <li>
+                            <span class="collapse-icon">▼</span>
+                            <input type="checkbox" id="accessories" name="accessories">
+                            <label for="accessories">Accessories</label>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="engraving" name="engraving">
+                                    <label for="engraving">Engraving</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="type" name="type">
+                                    <label for="type">Type</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="collapse-icon">▼</span>
+                            <input type="checkbox" id="dresses" name="dresses">
+                            <label for="dresses">Dresses</label>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="dress-color" name="dress-color">
+                                    <label for="dress-color">Color</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="dress-length" name="dress-length">
+                                    <label for="dress-length">Length</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="collapse-icon">▼</span>
+                            <input type="checkbox" id="jackets" name="jackets">
+                            <label for="jackets">Jackets</label>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="cotton" name="cotton">
+                                    <label for="cotton">Cotton</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="sleeve-length" name="sleeve-length">
+                                    <label for="sleeve-length">Sleeve length</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="jacket-color" name="jacket-color">
+                                    <label for="jacket-color">Color</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="size" name="size">
+                                    <label for="size">Size</label>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <button type="submit" class="submit-btn">Start export</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('export-form');
+            const searchBar = document.getElementById('search-bar');
+            const clearSearch = document.getElementById('clear-search');
+            const checkboxList = document.getElementById('checkbox-list');
+
+            form.addEventListener('change', function(e) {
+                if (e.target.type === 'checkbox') {
+                    const listItem = e.target.closest('li');
+                    const childCheckboxes = listItem.querySelectorAll('ul input[type="checkbox"]:not(.read-only)');
+                    childCheckboxes.forEach(checkbox => {
+                        checkbox.checked = e.target.checked;
+                    });
+
+                    updateParentCheckbox(e.target);
+                    updateReadOnlyCheckboxes(listItem.closest('ul'));
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const selectedFields = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
+                    .map(checkbox => checkbox.name);
+                console.log('Selected fields:', selectedFields);
+                alert('Export initiated with selected fields. Check console for details.');
+            });
+
+            searchBar.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filterCheckboxes(searchTerm);
+                clearSearch.style.display = searchTerm ? 'inline' : 'none';
+            });
+
+            clearSearch.addEventListener('click', function() {
+                searchBar.value = '';
+                filterCheckboxes('');
+                clearSearch.style.display = 'none';
+            });
+
+            checkboxList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('collapse-icon')) {
+                    const listItem = e.target.closest('li');
+                    listItem.classList.toggle('collapsed');
+                    e.target.textContent = listItem.classList.contains('collapsed') ? '▶' : '▼';
+                }
+            });
+
+            function updateParentCheckbox(checkbox) {
+                const parentLi = checkbox.closest('ul').closest('li');
+                if (parentLi) {
+                    const parentCheckbox = parentLi.querySelector('input[type="checkbox"]');
+                    const siblingCheckboxes = parentLi.querySelectorAll('ul > li > input[type="checkbox"]:not(.read-only)');
+                    const allChecked = Array.from(siblingCheckboxes).every(cb => cb.checked);
+                    const someChecked = Array.from(siblingCheckboxes).some(cb => cb.checked);
+                    parentCheckbox.checked = allChecked;
+                    parentCheckbox.indeterminate = someChecked && !allChecked;
+                    updateParentCheckbox(parentCheckbox);
+                }
+            }
+
+            function updateReadOnlyCheckboxes(ul) {
+                const readOnlyCheckboxes = ul.querySelectorAll('input[type="checkbox"].read-only');
+                const siblingCheckboxes = ul.querySelectorAll('input[type="checkbox"]:not(.read-only)');
+                const someChecked = Array.from(siblingCheckboxes).some(cb => cb.checked);
+                readOnlyCheckboxes.forEach(cb => {
+                    cb.checked = someChecked;
+                });
+            }
+
+            function filterCheckboxes(searchTerm) {
+                const checkboxes = checkboxList.querySelectorAll('li');
+                checkboxes.forEach(item => {
+                    const label = item.querySelector('label').textContent.toLowerCase();
+                    const shouldShow = label.includes(searchTerm);
+                    item.style.display = shouldShow ? '' : 'none';
+                    
+                    if (shouldShow) {
+                        let parent = item.parentElement;
+                        while (parent && parent !== checkboxList) {
+                            if (parent.tagName === 'LI') {
+                                parent.style.display = '';
+                                parent.classList.remove('collapsed');
+                                const icon = parent.querySelector('.collapse-icon');
+                                if (icon) icon.textContent = '▼';
+                            }
+                            parent = parent.parentElement;
+                        }
+                    }
+                });
+            }
+
+            // Initialize read-only checkboxes
+            document.querySelectorAll('ul').forEach(updateReadOnlyCheckboxes);
+
+            // Initialize clear search icon visibility
+            clearSearch.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
