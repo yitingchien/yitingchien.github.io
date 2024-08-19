@@ -5,65 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Export Products</title>
     <style>
+        :root {
+            --primary-color: #3c64f4;
+            --text-color: #1a1a1a;
+            --border-color: #d9d9d9;
+            --background-color: #f5f5f5;
+            --input-background: #ffffff;
+        }
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         h1 {
-            text-align: center;
-            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--text-color);
         }
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         h2 {
-            color: #444;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .radio-group, .input-group {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
             margin-bottom: 15px;
         }
-        label {
-            display: inline-block;
-            margin-right: 15px;
+        .radio-group, .input-group {
+            margin-bottom: 20px;
         }
-        input[type="radio"] {
-            margin-right: 5px;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .radio-label input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+        .radio-label .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: inline-block;
+            position: relative;
+        }
+        .radio-label input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
         }
         select, input[type="text"] {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
             box-sizing: border-box;
-        }
-        .next-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
             font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
+            background-color: var(--input-background);
         }
-        .next-btn:hover {
-            background-color: #0056b3;
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M10.293 3.293 6 7.586 1.707 3.293A1 1 0 0 0 .293 4.707l5 5a1 1 0 0 0 1.414 0l5-5a1 1 0 1 0-1.414-1.414z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(60, 100, 244, 0.2);
+        }
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary {
+            background-color: #fff;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            background-color: var(--background-color);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #3256d6;
         }
     </style>
 </head>
@@ -74,11 +140,15 @@
             <div class="section">
                 <h2>Scope</h2>
                 <div class="radio-group">
-                    <label>
-                        <input type="radio" name="scope" value="all" checked> Export all
+                    <label class="radio-label">
+                        <input type="radio" name="scope" value="all" checked>
+                        <span class="radio-custom"></span>
+                        Export all
                     </label>
-                    <label>
-                        <input type="radio" name="scope" value="selected"> Export selected
+                    <label class="radio-label">
+                        <input type="radio" name="scope" value="selected">
+                        <span class="radio-custom"></span>
+                        Export selected
                     </label>
                 </div>
             </div>
@@ -94,10 +164,13 @@
                 </div>
                 <div class="input-group">
                     <label for="file-name">File name</label>
-                    <input type="text" id="file-name" name="file-name" required>
+                    <input type="text" id="file-name" name="file-name" value="export_products" required>
                 </div>
             </div>
-            <button type="submit" class="next-btn">Next</button>
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-primary">Next</button>
+            </div>
         </form>
     </div>
 
